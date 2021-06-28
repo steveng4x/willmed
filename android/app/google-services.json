@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "788373510434",
+    "project_id": "willmed",
+    "storage_bucket": "willmed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:788373510434:android:9daa040a61efb240462d7b",
+        "android_client_info": {
+          "package_name": "com.flutter.willmed"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "788373510434-ksksk25dom00slnocqnbl2kqhbef3prk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.flutter.willmed",
+            "certificate_hash": "655168dcf4d1cc79e9855accb53c99791cfaef02"
+          }
+        },
+        {
+          "client_id": "788373510434-7vb7r1o4dv8qhj1hlrdqrimnf5b3r3vk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0FDzRtVewIYil1U-50U3yiBSYwYT9I-M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "788373510434-7vb7r1o4dv8qhj1hlrdqrimnf5b3r3vk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "788373510434-cvuivjlntu11th8481bb7f7cni9q7qln.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.flutter.willmed"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

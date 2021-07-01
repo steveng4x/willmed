@@ -12,10 +12,31 @@ abstract class PostalarmRecord
       _$postalarmRecordSerializer;
 
   @nullable
+  String get medname;
+
+  @nullable
+  BuiltList<DateTime> get duration;
+
+  @nullable
+  String get intake;
+
+  @nullable
+  @BuiltValueField(wireName: 'created_time')
+  DateTime get createdTime;
+
+  @nullable
+  @BuiltValueField(wireName: 'intake_time')
+  BuiltList<DateTime> get intakeTime;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
-  static void _initializeBuilder(PostalarmRecordBuilder builder) => builder;
+  static void _initializeBuilder(PostalarmRecordBuilder builder) => builder
+    ..medname = ''
+    ..duration = ListBuilder()
+    ..intake = ''
+    ..intakeTime = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('postalarm');
@@ -34,5 +55,16 @@ abstract class PostalarmRecord
           serializer, {...data, kDocumentReferenceField: reference});
 }
 
-Map<String, dynamic> createPostalarmRecordData() => serializers.toFirestore(
-    PostalarmRecord.serializer, PostalarmRecord((p) => p));
+Map<String, dynamic> createPostalarmRecordData({
+  String medname,
+  String intake,
+  DateTime createdTime,
+}) =>
+    serializers.toFirestore(
+        PostalarmRecord.serializer,
+        PostalarmRecord((p) => p
+          ..medname = medname
+          ..duration = null
+          ..intake = intake
+          ..createdTime = createdTime
+          ..intakeTime = null));

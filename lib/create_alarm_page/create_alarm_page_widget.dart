@@ -4,6 +4,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CreateAlarmPageWidget extends StatefulWidget {
@@ -14,11 +15,12 @@ class CreateAlarmPageWidget extends StatefulWidget {
 }
 
 class _CreateAlarmPageWidgetState extends State<CreateAlarmPageWidget> {
+  DateTime datePicked = DateTime.now();
+  TextEditingController textController4;
   String dropDownValue;
   TextEditingController textController1;
   TextEditingController textController2;
   TextEditingController textController3;
-  TextEditingController textController4;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -329,45 +331,68 @@ class _CreateAlarmPageWidgetState extends State<CreateAlarmPageWidget> {
                                   color: Color(0xFF787878),
                                 ),
                               ),
-                              child: Padding(
-                                padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                child: TextFormField(
-                                  controller: textController4,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    hintText: 'Duration',
-                                    hintStyle:
-                                        FlutterFlowTheme.bodyText1.override(
-                                      fontFamily: 'Poppins',
-                                      color: Color(0xFF505050),
-                                    ),
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 1,
+                              child: Stack(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                    child: TextFormField(
+                                      controller: textController4,
+                                      obscureText: false,
+                                      decoration: InputDecoration(
+                                        hintText: 'Duration',
+                                        hintStyle:
+                                            FlutterFlowTheme.bodyText1.override(
+                                          fontFamily: 'Poppins',
+                                          color: Color(0xFF505050),
+                                        ),
+                                        enabledBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0x00000000),
+                                            width: 1,
+                                          ),
+                                          borderRadius: const BorderRadius.only(
+                                            topLeft: Radius.circular(4.0),
+                                            topRight: Radius.circular(4.0),
+                                          ),
+                                        ),
+                                        focusedBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0x00000000),
+                                            width: 1,
+                                          ),
+                                          borderRadius: const BorderRadius.only(
+                                            topLeft: Radius.circular(4.0),
+                                            topRight: Radius.circular(4.0),
+                                          ),
+                                        ),
                                       ),
-                                      borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(4.0),
-                                        topRight: Radius.circular(4.0),
+                                      style:
+                                          FlutterFlowTheme.bodyText1.override(
+                                        fontFamily: 'Poppins',
+                                        color: Color(0xFF505050),
                                       ),
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 1,
-                                      ),
-                                      borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(4.0),
-                                        topRight: Radius.circular(4.0),
-                                      ),
+                                      keyboardType: TextInputType.datetime,
                                     ),
                                   ),
-                                  style: FlutterFlowTheme.bodyText1.override(
-                                    fontFamily: 'Poppins',
-                                    color: Color(0xFF505050),
-                                  ),
-                                  keyboardType: TextInputType.datetime,
-                                ),
+                                  Align(
+                                    alignment: Alignment(0.95, 0.61),
+                                    child: IconButton(
+                                      onPressed: () async {
+                                        await DatePicker.showDatePicker(context,
+                                            showTitleActions: true,
+                                            onConfirm: (date) {
+                                          setState(() => datePicked = date);
+                                        }, currentTime: DateTime.now());
+                                      },
+                                      icon: Icon(
+                                        Icons.calendar_today,
+                                        color: Color(0xFF505050),
+                                        size: 25,
+                                      ),
+                                      iconSize: 25,
+                                    ),
+                                  )
+                                ],
                               ),
                             ),
                           )

@@ -1,10 +1,12 @@
+import '../auth/auth_util.dart';
+import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_drop_down_template.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CreateAlarmPageWidget extends StatefulWidget {
@@ -15,12 +17,13 @@ class CreateAlarmPageWidget extends StatefulWidget {
 }
 
 class _CreateAlarmPageWidgetState extends State<CreateAlarmPageWidget> {
-  DateTime datePicked = DateTime.now();
-  TextEditingController textController4;
-  String dropDownValue;
-  TextEditingController textController1;
+  String dropDownValue1;
   TextEditingController textController2;
+  TextEditingController textController1;
   TextEditingController textController3;
+  String dropDownValue2;
+  TextEditingController textController4;
+  TextEditingController textController5;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -29,7 +32,9 @@ class _CreateAlarmPageWidgetState extends State<CreateAlarmPageWidget> {
     textController1 = TextEditingController();
     textController2 = TextEditingController();
     textController3 = TextEditingController();
-    textController4 = TextEditingController();
+    textController4 = TextEditingController(
+        text: dateTimeFormat('relative', getCurrentTimestamp));
+    textController5 = TextEditingController();
   }
 
   @override
@@ -185,49 +190,32 @@ class _CreateAlarmPageWidgetState extends State<CreateAlarmPageWidget> {
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(10),
                                     border: Border.all(
-                                      color: Color(0xFF787878),
+                                      color: Color(0x00FFFFFF),
                                     ),
                                   ),
-                                  child: Padding(
-                                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                    child: TextFormField(
-                                      controller: textController2,
-                                      obscureText: false,
-                                      decoration: InputDecoration(
-                                        hintText: 'Take(s)',
-                                        hintStyle:
-                                            FlutterFlowTheme.bodyText1.override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0xFF505050),
-                                        ),
-                                        enabledBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1,
-                                          ),
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(4.0),
-                                            topRight: Radius.circular(4.0),
-                                          ),
-                                        ),
-                                        focusedBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1,
-                                          ),
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(4.0),
-                                            topRight: Radius.circular(4.0),
-                                          ),
-                                        ),
-                                      ),
-                                      style:
-                                          FlutterFlowTheme.bodyText1.override(
-                                        fontFamily: 'Poppins',
-                                        color: Color(0xFF505050),
-                                      ),
-                                      keyboardType: TextInputType.number,
+                                  child: FlutterFlowDropDown(
+                                    options: [
+                                      'Once per Daily',
+                                      'Daily every X hours',
+                                      'Every X days',
+                                      'Specific day(s) of week'
+                                    ],
+                                    onChanged: (value) {
+                                      setState(() => dropDownValue1 = value);
+                                    },
+                                    width: 130,
+                                    height: 40,
+                                    textStyle:
+                                        FlutterFlowTheme.bodyText1.override(
+                                      fontFamily: 'Poppins',
+                                      color: Color(0xFF505050),
                                     ),
+                                    fillColor: Colors.white,
+                                    elevation: 2,
+                                    borderColor: Color(0xFF787878),
+                                    borderWidth: 0,
+                                    borderRadius: 10,
+                                    margin: EdgeInsets.fromLTRB(10, 4, 8, 4),
                                   ),
                                 ),
                                 Padding(
@@ -245,7 +233,7 @@ class _CreateAlarmPageWidgetState extends State<CreateAlarmPageWidget> {
                                     child: Padding(
                                       padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                                       child: TextFormField(
-                                        controller: textController3,
+                                        controller: textController2,
                                         obscureText: false,
                                         decoration: InputDecoration(
                                           hintText: 'Pill(s)',
@@ -291,6 +279,60 @@ class _CreateAlarmPageWidgetState extends State<CreateAlarmPageWidget> {
                             ),
                           ),
                           Padding(
+                            padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                            child: Container(
+                              width: 335,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                  color: Color(0xFF787878),
+                                ),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                child: TextFormField(
+                                  controller: textController3,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    hintText: 'Time',
+                                    hintStyle:
+                                        FlutterFlowTheme.bodyText1.override(
+                                      fontFamily: 'Poppins',
+                                      color: Color(0xFF505050),
+                                    ),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
+                                  ),
+                                  style: FlutterFlowTheme.bodyText1.override(
+                                    fontFamily: 'Poppins',
+                                    color: Color(0xFF505050),
+                                  ),
+                                  keyboardType: TextInputType.datetime,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
                             padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
                             child: Container(
                               width: 335,
@@ -302,7 +344,7 @@ class _CreateAlarmPageWidgetState extends State<CreateAlarmPageWidget> {
                               child: FlutterFlowDropDown(
                                 options: ['After Meal', 'Before Meal'],
                                 onChanged: (value) {
-                                  setState(() => dropDownValue = value);
+                                  setState(() => dropDownValue2 = value);
                                 },
                                 width: 130,
                                 height: 40,
@@ -320,9 +362,57 @@ class _CreateAlarmPageWidgetState extends State<CreateAlarmPageWidget> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
-                            child: Container(
-                              width: 335,
+                            padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                            child: Stack(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Divider(
+                                        indent: 20,
+                                        endIndent: 20,
+                                        color: Color(0xFF787878),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(40, 0, 0, 0),
+                                  child: Container(
+                                    width: 100,
+                                    height: 30,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                      child: Text(
+                                        'Duration',
+                                        textAlign: TextAlign.center,
+                                        style:
+                                            FlutterFlowTheme.bodyText1.override(
+                                          fontFamily: 'Poppins',
+                                          color: Color(0xFF787878),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(1, 15, 0, 0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 150,
                               height: 50,
                               decoration: BoxDecoration(
                                 color: Colors.white,
@@ -331,102 +421,162 @@ class _CreateAlarmPageWidgetState extends State<CreateAlarmPageWidget> {
                                   color: Color(0xFF787878),
                                 ),
                               ),
-                              child: Stack(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                    child: TextFormField(
-                                      controller: textController4,
-                                      obscureText: false,
-                                      decoration: InputDecoration(
-                                        hintText: 'Duration',
-                                        hintStyle:
-                                            FlutterFlowTheme.bodyText1.override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0xFF505050),
-                                        ),
-                                        enabledBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1,
-                                          ),
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(4.0),
-                                            topRight: Radius.circular(4.0),
-                                          ),
-                                        ),
-                                        focusedBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1,
-                                          ),
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(4.0),
-                                            topRight: Radius.circular(4.0),
-                                          ),
-                                        ),
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                child: TextFormField(
+                                  controller: textController4,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    hintText: 'Starting Date',
+                                    hintStyle:
+                                        FlutterFlowTheme.bodyText1.override(
+                                      fontFamily: 'Poppins',
+                                      color: Color(0xFF787878),
+                                    ),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
                                       ),
-                                      style:
-                                          FlutterFlowTheme.bodyText1.override(
-                                        fontFamily: 'Poppins',
-                                        color: Color(0xFF505050),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
                                       ),
-                                      keyboardType: TextInputType.datetime,
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
                                     ),
                                   ),
-                                  Align(
-                                    alignment: Alignment(0.95, 0.61),
-                                    child: IconButton(
-                                      onPressed: () async {
-                                        await DatePicker.showDatePicker(context,
-                                            showTitleActions: true,
-                                            onConfirm: (date) {
-                                          setState(() => datePicked = date);
-                                        }, currentTime: DateTime.now());
-                                      },
-                                      icon: Icon(
-                                        Icons.calendar_today,
-                                        color: Color(0xFF505050),
-                                        size: 25,
-                                      ),
-                                      iconSize: 25,
-                                    ),
-                                  )
-                                ],
+                                  style: FlutterFlowTheme.bodyText1.override(
+                                    fontFamily: 'Poppins',
+                                    color: Color(0xFF787878),
+                                  ),
+                                  keyboardType: TextInputType.datetime,
+                                ),
                               ),
                             ),
-                          )
-                        ],
+                            Icon(
+                              Icons.linear_scale,
+                              color: Color(0xFF505050),
+                              size: 24,
+                            ),
+                            Container(
+                              width: 150,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                  color: Color(0xFF787878),
+                                ),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                child: TextFormField(
+                                  controller: textController5,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    hintText: 'End Date',
+                                    hintStyle:
+                                        FlutterFlowTheme.bodyText1.override(
+                                      fontFamily: 'Poppins',
+                                      color: Color(0xFF505050),
+                                    ),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
+                                  ),
+                                  style: FlutterFlowTheme.bodyText1.override(
+                                    fontFamily: 'Poppins',
+                                    color: Color(0xFF505050),
+                                  ),
+                                  keyboardType: TextInputType.datetime,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                       )
                     ],
                   ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 270, 0, 0),
-                    child: Container(
-                      width: double.infinity,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                            child: FFButtonWidget(
-                              onPressed: () {
-                                print('Button pressed ...');
-                              },
-                              text: 'Fill with OCR',
-                              icon: Icon(
-                                Icons.camera_alt,
-                                size: 15,
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment(0, 1),
+                      child: Container(
+                        width: double.infinity,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                              child: FFButtonWidget(
+                                onPressed: () {
+                                  print('Button pressed ...');
+                                },
+                                text: 'Fill with OCR',
+                                icon: Icon(
+                                  Icons.camera_alt,
+                                  size: 15,
+                                ),
+                                options: FFButtonOptions(
+                                  width: 335,
+                                  height: 50,
+                                  color: Color(0xFF787878),
+                                  textStyle:
+                                      FlutterFlowTheme.subtitle2.override(
+                                    fontFamily: 'Poppins',
+                                    color: Colors.white,
+                                  ),
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1,
+                                  ),
+                                  borderRadius: 25,
+                                ),
                               ),
+                            ),
+                            FFButtonWidget(
+                              onPressed: () async {
+                                final postalarmRecordData =
+                                    createPostalarmRecordData();
+                                await PostalarmRecord.collection
+                                    .doc()
+                                    .set(postalarmRecordData);
+                              },
+                              text: 'Done',
                               options: FFButtonOptions(
                                 width: 335,
                                 height: 50,
-                                color: Color(0xFF787878),
+                                color: FlutterFlowTheme.primaryColor,
                                 textStyle: FlutterFlowTheme.subtitle2.override(
                                   fontFamily: 'Poppins',
                                   color: Colors.white,
@@ -437,29 +587,9 @@ class _CreateAlarmPageWidgetState extends State<CreateAlarmPageWidget> {
                                 ),
                                 borderRadius: 25,
                               ),
-                            ),
-                          ),
-                          FFButtonWidget(
-                            onPressed: () {
-                              print('Button pressed ...');
-                            },
-                            text: 'Done',
-                            options: FFButtonOptions(
-                              width: 335,
-                              height: 50,
-                              color: FlutterFlowTheme.primaryColor,
-                              textStyle: FlutterFlowTheme.subtitle2.override(
-                                fontFamily: 'Poppins',
-                                color: Colors.white,
-                              ),
-                              borderSide: BorderSide(
-                                color: Colors.transparent,
-                                width: 1,
-                              ),
-                              borderRadius: 25,
-                            ),
-                          )
-                        ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   )

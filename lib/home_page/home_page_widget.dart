@@ -1,3 +1,4 @@
+import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../create_alarm_page/create_alarm_page_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -64,8 +65,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       body: SafeArea(
         child: StreamBuilder<List<PostalarmRecord>>(
           stream: queryPostalarmRecord(
-            queryBuilder: (postalarmRecord) =>
-                postalarmRecord.orderBy('created_time', descending: true),
+            queryBuilder: (postalarmRecord) => postalarmRecord
+                .where('user', isEqualTo: currentUserReference)
+                .orderBy('created_time', descending: true),
           ),
           builder: (context, snapshot) {
             // Customize what your widget looks like when it's loading.
@@ -146,7 +148,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 ),
                               ),
                               subtitle: Text(
-                                listViewPostalarmRecord.intake,
+                                'Subtitle',
                                 style: FlutterFlowTheme.subtitle2.override(
                                   fontFamily: 'Poppins',
                                 ),
@@ -169,7 +171,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           Align(
                             alignment: Alignment(-0.87, 0.7),
                             child: Text(
-                              '[intaketime]',
+                              listViewPostalarmRecord.intakeTime,
                               style: FlutterFlowTheme.bodyText1.override(
                                 fontFamily: 'Poppins',
                               ),

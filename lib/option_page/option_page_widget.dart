@@ -1,4 +1,5 @@
 import '../auth/auth_util.dart';
+import '../edit_profile/edit_profile_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -50,8 +51,8 @@ class _OptionPageWidgetState extends State<OptionPageWidget> {
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                 ),
-                                child: Image.asset(
-                                  'assets/images/UI_avatar@2x.png',
+                                child: Image.network(
+                                  currentUserPhoto,
                                 ),
                               ),
                             ),
@@ -60,10 +61,21 @@ class _OptionPageWidgetState extends State<OptionPageWidget> {
                                 alignment: Alignment(0.85, 0),
                                 child: Padding(
                                   padding: EdgeInsets.fromLTRB(0, 12, 0, 0),
-                                  child: Icon(
-                                    Icons.edit_outlined,
-                                    color: Color(0xFF95A1AC),
-                                    size: 24,
+                                  child: InkWell(
+                                    onTap: () async {
+                                      await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              EditProfileWidget(),
+                                        ),
+                                      );
+                                    },
+                                    child: Icon(
+                                      Icons.edit_outlined,
+                                      color: Color(0xFF95A1AC),
+                                      size: 24,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -76,9 +88,24 @@ class _OptionPageWidgetState extends State<OptionPageWidget> {
                             Padding(
                               padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
                               child: Text(
-                                currentUserEmail,
+                                currentUserDisplayName,
                                 style: FlutterFlowTheme.title1.override(
                                   fontFamily: 'Poppins',
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
+                              child: Text(
+                                currentUserEmail,
+                                style: FlutterFlowTheme.subtitle2.override(
+                                  fontFamily: 'Poppins',
+                                  color: Color(0xFFA959DE),
                                 ),
                               ),
                             )
@@ -127,29 +154,39 @@ class _OptionPageWidgetState extends State<OptionPageWidget> {
                             color: Colors.white,
                             shape: BoxShape.rectangle,
                           ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.fromLTRB(24, 0, 0, 0),
-                                child: Text(
-                                  'Settings',
-                                  style: FlutterFlowTheme.bodyText1.override(
-                                    fontFamily: 'Poppins',
+                          child: InkWell(
+                            onTap: () async {
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => EditProfileWidget(),
+                                ),
+                              );
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(24, 0, 0, 0),
+                                  child: Text(
+                                    'Edit Profile',
+                                    style: FlutterFlowTheme.bodyText1.override(
+                                      fontFamily: 'Poppins',
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Expanded(
-                                child: Align(
-                                  alignment: Alignment(0.9, 0),
-                                  child: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: Color(0xFF95A1AC),
-                                    size: 18,
+                                Expanded(
+                                  child: Align(
+                                    alignment: Alignment(0.9, 0),
+                                    child: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: Color(0xFF95A1AC),
+                                      size: 18,
+                                    ),
                                   ),
-                                ),
-                              )
-                            ],
+                                )
+                              ],
+                            ),
                           ),
                         )
                       ],
@@ -174,46 +211,6 @@ class _OptionPageWidgetState extends State<OptionPageWidget> {
                                 padding: EdgeInsets.fromLTRB(24, 0, 0, 0),
                                 child: Text(
                                   'Notifications',
-                                  style: FlutterFlowTheme.bodyText1.override(
-                                    fontFamily: 'Poppins',
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Align(
-                                  alignment: Alignment(0.9, 0),
-                                  child: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: Color(0xFF95A1AC),
-                                    size: 18,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 1, 0, 0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.rectangle,
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.fromLTRB(24, 0, 0, 0),
-                                child: Text(
-                                  'Change Password',
                                   style: FlutterFlowTheme.bodyText1.override(
                                     fontFamily: 'Poppins',
                                   ),

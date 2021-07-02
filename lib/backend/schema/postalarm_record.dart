@@ -15,18 +15,30 @@ abstract class PostalarmRecord
   String get medname;
 
   @nullable
-  BuiltList<DateTime> get duration;
-
-  @nullable
-  String get intake;
-
-  @nullable
   @BuiltValueField(wireName: 'created_time')
   DateTime get createdTime;
 
   @nullable
+  DocumentReference get user;
+
+  @nullable
+  @BuiltValueField(wireName: 'duration_start')
+  DateTime get durationStart;
+
+  @nullable
+  @BuiltValueField(wireName: 'intake_type')
+  String get intakeType;
+
+  @nullable
+  @BuiltValueField(wireName: 'duration_end')
+  String get durationEnd;
+
+  @nullable
   @BuiltValueField(wireName: 'intake_time')
-  BuiltList<DateTime> get intakeTime;
+  String get intakeTime;
+
+  @nullable
+  String get mealspecific;
 
   @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
@@ -34,9 +46,10 @@ abstract class PostalarmRecord
 
   static void _initializeBuilder(PostalarmRecordBuilder builder) => builder
     ..medname = ''
-    ..duration = ListBuilder()
-    ..intake = ''
-    ..intakeTime = ListBuilder();
+    ..intakeType = ''
+    ..durationEnd = ''
+    ..intakeTime = ''
+    ..mealspecific = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('postalarm');
@@ -57,14 +70,22 @@ abstract class PostalarmRecord
 
 Map<String, dynamic> createPostalarmRecordData({
   String medname,
-  String intake,
   DateTime createdTime,
+  DocumentReference user,
+  DateTime durationStart,
+  String intakeType,
+  String durationEnd,
+  String intakeTime,
+  String mealspecific,
 }) =>
     serializers.toFirestore(
         PostalarmRecord.serializer,
         PostalarmRecord((p) => p
           ..medname = medname
-          ..duration = null
-          ..intake = intake
           ..createdTime = createdTime
-          ..intakeTime = null));
+          ..user = user
+          ..durationStart = durationStart
+          ..intakeType = intakeType
+          ..durationEnd = durationEnd
+          ..intakeTime = intakeTime
+          ..mealspecific = mealspecific));

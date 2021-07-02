@@ -28,7 +28,6 @@ class _CreateAlarmPageWidgetState extends State<CreateAlarmPageWidget> {
   TextEditingController textController1;
   TextEditingController textController2;
   TextEditingController textController5;
-  DateTime datePicked3 = DateTime.now();
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -37,10 +36,8 @@ class _CreateAlarmPageWidgetState extends State<CreateAlarmPageWidget> {
     super.initState();
     textController1 = TextEditingController();
     textController2 = TextEditingController();
-    textController3 =
-        TextEditingController(text: dateTimeFormat('yMMMd', datePicked0));
-    textController4 =
-        TextEditingController(text: dateTimeFormat('yMMMd', datePicked0));
+    textController3 = TextEditingController();
+    textController4 = TextEditingController();
     textController5 = TextEditingController();
   }
 
@@ -518,33 +515,6 @@ class _CreateAlarmPageWidgetState extends State<CreateAlarmPageWidget> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        child: InkWell(
-                          onTap: () async {
-                            await DatePicker.showDatePicker(context,
-                                showTitleActions: true, onConfirm: (date) {
-                              setState(() => datePicked3 = date);
-                            }, currentTime: DateTime.now());
-                          },
-                          child: Text(
-                            'Add Time',
-                            textAlign: TextAlign.start,
-                            style: FlutterFlowTheme.bodyText1.override(
-                              fontFamily: 'Poppins',
-                              color: FlutterFlowTheme.primaryColor,
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
                 Expanded(
                   child: Align(
                     alignment: Alignment(0, 1),
@@ -596,20 +566,18 @@ class _CreateAlarmPageWidgetState extends State<CreateAlarmPageWidget> {
                               if (!formKey.currentState.validate()) {
                                 return;
                               }
-                              final postalarmRecordData = {
-                                ...createPostalarmRecordData(
-                                  medname: textController1.text,
-                                  createdTime: getCurrentTimestamp,
-                                  user: currentUserReference,
-                                  durationStart: datePicked0,
-                                  durationEnd: datePicked0,
-                                  mealspecific: dropDownValue,
-                                  alarmSwitch: true,
-                                  pills: int.parse(textController2.text),
-                                ),
-                                'intake_time': FieldValue.arrayUnion(
-                                    [textController5.text]),
-                              };
+                              final postalarmRecordData =
+                                  createPostalarmRecordData(
+                                medname: textController1.text,
+                                createdTime: getCurrentTimestamp,
+                                user: currentUserReference,
+                                durationStart: datePicked1,
+                                durationEnd: datePicked2,
+                                mealspecific: dropDownValue,
+                                alarmSwitch: true,
+                                intakeTime: textController5.text,
+                                pills: int.parse(textController2.text),
+                              );
                               await PostalarmRecord.collection
                                   .doc()
                                   .set(postalarmRecordData);

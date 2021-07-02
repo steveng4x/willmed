@@ -33,7 +33,6 @@ class _UpdateAlarmPageWidgetState extends State<UpdateAlarmPageWidget> {
   TextEditingController textController1;
   TextEditingController textController2;
   TextEditingController textController5;
-  DateTime datePicked3 = DateTime.now();
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -48,7 +47,8 @@ class _UpdateAlarmPageWidgetState extends State<UpdateAlarmPageWidget> {
         text: dateTimeFormat('yMMMd', widget.reminderRecord.durationStart));
     textController4 = TextEditingController(
         text: dateTimeFormat('yMMMd', widget.reminderRecord.durationEnd));
-    textController5 = TextEditingController();
+    textController5 =
+        TextEditingController(text: widget.reminderRecord.intakeTime);
   }
 
   @override
@@ -526,33 +526,6 @@ class _UpdateAlarmPageWidgetState extends State<UpdateAlarmPageWidget> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        child: InkWell(
-                          onTap: () async {
-                            await DatePicker.showDatePicker(context,
-                                showTitleActions: true, onConfirm: (date) {
-                              setState(() => datePicked3 = date);
-                            }, currentTime: DateTime.now());
-                          },
-                          child: Text(
-                            'Add Time',
-                            textAlign: TextAlign.start,
-                            style: FlutterFlowTheme.bodyText1.override(
-                              fontFamily: 'Poppins',
-                              color: FlutterFlowTheme.primaryColor,
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
                 Expanded(
                   child: Align(
                     alignment: Alignment(0, 1),
@@ -604,19 +577,17 @@ class _UpdateAlarmPageWidgetState extends State<UpdateAlarmPageWidget> {
                               if (!formKey.currentState.validate()) {
                                 return;
                               }
-                              final postalarmRecordData = {
-                                ...createPostalarmRecordData(
-                                  medname: textController1.text,
-                                  createdTime: getCurrentTimestamp,
-                                  user: currentUserReference,
-                                  durationStart: datePicked0,
-                                  durationEnd: datePicked0,
-                                  mealspecific: dropDownValue,
-                                  alarmSwitch: true,
-                                ),
-                                'intake_time': FieldValue.arrayUnion(
-                                    [textController5.text]),
-                              };
+                              final postalarmRecordData =
+                                  createPostalarmRecordData(
+                                medname: textController1.text,
+                                createdTime: getCurrentTimestamp,
+                                user: currentUserReference,
+                                durationStart: datePicked1,
+                                durationEnd: datePicked2,
+                                mealspecific: dropDownValue,
+                                alarmSwitch: true,
+                                intakeTime: textController5.text,
+                              );
                               await PostalarmRecord.collection
                                   .doc()
                                   .set(postalarmRecordData);

@@ -148,7 +148,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               ),
                             ),
                             Align(
-                              alignment: Alignment(0, -1.14),
+                              alignment: Alignment(0, -0.93),
                               child: Padding(
                                 padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
                                 child: SwitchListTile(

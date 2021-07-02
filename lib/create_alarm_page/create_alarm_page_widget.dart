@@ -516,19 +516,14 @@ class _CreateAlarmPageWidgetState extends State<CreateAlarmPageWidget> {
                   ),
                 ),
                 Expanded(
-                  child: Align(
-                    alignment: Alignment(0, 1),
-                    child: Container(
-                      width: double.infinity,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment(0, 1),
+                          child: Padding(
                             padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
                             child: FFButtonWidget(
                               onPressed: () async {
@@ -561,53 +556,56 @@ class _CreateAlarmPageWidgetState extends State<CreateAlarmPageWidget> {
                               ),
                             ),
                           ),
-                          FFButtonWidget(
-                            onPressed: () async {
-                              if (!formKey.currentState.validate()) {
-                                return;
-                              }
-                              final postalarmRecordData =
-                                  createPostalarmRecordData(
-                                medname: textController1.text,
-                                createdTime: getCurrentTimestamp,
-                                user: currentUserReference,
-                                durationStart: datePicked1,
-                                durationEnd: datePicked2,
-                                mealspecific: dropDownValue,
-                                alarmSwitch: true,
-                                intakeTime: textController5.text,
-                                pills: int.parse(textController2.text),
-                              );
-                              await PostalarmRecord.collection
-                                  .doc()
-                                  .set(postalarmRecordData);
-                              await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      NavBarPage(initialPage: 'HomePage'),
-                                ),
-                              );
-                            },
-                            text: 'Done',
-                            options: FFButtonOptions(
-                              width: 335,
-                              height: 50,
-                              color: FlutterFlowTheme.primaryColor,
-                              textStyle: FlutterFlowTheme.subtitle2.override(
-                                fontFamily: 'Poppins',
-                                color: Colors.white,
-                              ),
-                              borderSide: BorderSide(
-                                color: Colors.transparent,
-                                width: 1,
-                              ),
-                              borderRadius: 25,
-                            ),
-                          )
-                        ],
+                        ),
                       ),
-                    ),
+                      Align(
+                        alignment: Alignment(0, 1),
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            if (!formKey.currentState.validate()) {
+                              return;
+                            }
+                            final postalarmRecordData =
+                                createPostalarmRecordData(
+                              medname: textController1.text,
+                              createdTime: getCurrentTimestamp,
+                              user: currentUserReference,
+                              durationStart: datePicked1,
+                              durationEnd: datePicked2,
+                              mealspecific: dropDownValue,
+                              alarmSwitch: true,
+                              intakeTime: textController5.text,
+                              pills: int.parse(textController2.text),
+                            );
+                            await PostalarmRecord.collection
+                                .doc()
+                                .set(postalarmRecordData);
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    NavBarPage(initialPage: 'HomePage'),
+                              ),
+                            );
+                          },
+                          text: 'Done',
+                          options: FFButtonOptions(
+                            width: 335,
+                            height: 50,
+                            color: FlutterFlowTheme.primaryColor,
+                            textStyle: FlutterFlowTheme.subtitle2.override(
+                              fontFamily: 'Poppins',
+                              color: Colors.white,
+                            ),
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1,
+                            ),
+                            borderRadius: 25,
+                          ),
+                        ),
+                      )
+                    ],
                   ),
                 )
               ],

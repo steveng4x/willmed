@@ -580,17 +580,14 @@ class _UpdateAlarmPageWidgetState extends State<UpdateAlarmPageWidget> {
                               final postalarmRecordData =
                                   createPostalarmRecordData(
                                 medname: textController1.text,
-                                createdTime: getCurrentTimestamp,
-                                user: currentUserReference,
                                 durationStart: datePicked1,
-                                durationEnd: datePicked2,
                                 mealspecific: dropDownValue,
-                                alarmSwitch: true,
+                                durationEnd: datePicked2,
+                                pills: int.parse(textController2.text),
                                 intakeTime: textController5.text,
                               );
-                              await PostalarmRecord.collection
-                                  .doc()
-                                  .set(postalarmRecordData);
+                              await widget.reminderRecord.reference
+                                  .update(postalarmRecordData);
                               await Navigator.push(
                                 context,
                                 MaterialPageRoute(

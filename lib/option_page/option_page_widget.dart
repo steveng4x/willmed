@@ -121,21 +121,6 @@ class _OptionPageWidgetState extends State<OptionPageWidget> {
                                   ),
                                 )
                               ],
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
-                                  child: Text(
-                                    columnUsersRecord.uid,
-                                    style: FlutterFlowTheme.subtitle2.override(
-                                      fontFamily: 'Poppins',
-                                      color: Color(0xFF5A5A5A),
-                                    ),
-                                  ),
-                                )
-                              ],
                             )
                           ],
                         ),

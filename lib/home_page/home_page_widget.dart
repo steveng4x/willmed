@@ -173,7 +173,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             Align(
                               alignment: Alignment(-0.87, 0.4),
                               child: Text(
-                                'Next Intake',
+                                'Intake Time',
                                 style: FlutterFlowTheme.bodyText1.override(
                                   fontFamily: 'Poppins',
                                 ),

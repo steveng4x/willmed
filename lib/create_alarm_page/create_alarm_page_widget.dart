@@ -38,8 +38,9 @@ class _CreateAlarmPageWidgetState extends State<CreateAlarmPageWidget> {
     textController1 = TextEditingController();
     textController2 = TextEditingController();
     textController3 =
-        TextEditingController(text: dateTimeFormat('relative', datePicked0));
-    textController4 = TextEditingController(text: datePicked0.toString());
+        TextEditingController(text: dateTimeFormat('yMMMd', datePicked0));
+    textController4 =
+        TextEditingController(text: dateTimeFormat('yMMMd', datePicked0));
     textController5 = TextEditingController();
   }
 
@@ -502,6 +503,7 @@ class _CreateAlarmPageWidgetState extends State<CreateAlarmPageWidget> {
                               style: FlutterFlowTheme.bodyText1.override(
                                 fontFamily: 'Poppins',
                               ),
+                              keyboardType: TextInputType.datetime,
                               validator: (val) {
                                 if (val.isEmpty) {
                                   return 'Field is required';
@@ -603,6 +605,7 @@ class _CreateAlarmPageWidgetState extends State<CreateAlarmPageWidget> {
                                   durationEnd: datePicked0,
                                   mealspecific: dropDownValue,
                                   alarmSwitch: true,
+                                  pills: int.parse(textController2.text),
                                 ),
                                 'intake_time': FieldValue.arrayUnion(
                                     [textController5.text]),

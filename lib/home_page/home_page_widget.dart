@@ -4,6 +4,7 @@ import '../create_alarm_page/create_alarm_page_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../update_alarm_page/update_alarm_page_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -112,8 +113,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             Align(
                               alignment: Alignment(0.9, 0.78),
                               child: FFButtonWidget(
-                                onPressed: () {
-                                  print('Button pressed ...');
+                                onPressed: () async {
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          UpdateAlarmPageWidget(
+                                        reminderRecord: listViewPostalarmRecord,
+                                      ),
+                                    ),
+                                  );
                                 },
                                 text: 'Date',
                                 icon: Icon(

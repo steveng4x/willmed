@@ -80,6 +80,20 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                     children: [
                       Align(
                         alignment: Alignment(0, 0),
+                        child: Container(
+                          width: 120,
+                          height: 120,
+                          clipBehavior: Clip.antiAlias,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                          ),
+                          child: CachedNetworkImage(
+                            imageUrl: widget.userRecord.photoUrl,
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment(0, 0.54),
                         child: InkWell(
                           onTap: () async {
                             final selectedMedia = await selectMedia();
@@ -102,25 +116,21 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                               }
                             }
                           },
-                          child: Container(
-                            width: 120,
-                            height: 120,
-                            clipBehavior: Clip.antiAlias,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                            ),
-                            child: CachedNetworkImage(
-                              imageUrl: widget.userRecord.photoUrl,
-                            ),
+                          child: Icon(
+                            Icons.photo_camera,
+                            color: Color(0x87A959DE),
+                            size: 60,
                           ),
                         ),
                       ),
                       Align(
-                        alignment: Alignment(0, 0.54),
-                        child: Icon(
-                          Icons.photo_camera,
-                          color: Color(0x83FFFFFF),
-                          size: 60,
+                        alignment: Alignment(0, 0.45),
+                        child: Text(
+                          'Add Profile Picture',
+                          style: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Poppins',
+                            color: Color(0x91A959DE),
+                          ),
                         ),
                       )
                     ],

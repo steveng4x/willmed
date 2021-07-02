@@ -26,19 +26,19 @@ abstract class PostalarmRecord
   DateTime get durationStart;
 
   @nullable
-  @BuiltValueField(wireName: 'intake_type')
-  String get intakeType;
+  String get mealspecific;
 
   @nullable
-  @BuiltValueField(wireName: 'duration_end')
-  String get durationEnd;
+  @BuiltValueField(wireName: 'alarm_switch')
+  bool get alarmSwitch;
 
   @nullable
   @BuiltValueField(wireName: 'intake_time')
-  String get intakeTime;
+  BuiltList<String> get intakeTime;
 
   @nullable
-  String get mealspecific;
+  @BuiltValueField(wireName: 'duration_end')
+  DateTime get durationEnd;
 
   @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
@@ -46,10 +46,9 @@ abstract class PostalarmRecord
 
   static void _initializeBuilder(PostalarmRecordBuilder builder) => builder
     ..medname = ''
-    ..intakeType = ''
-    ..durationEnd = ''
-    ..intakeTime = ''
-    ..mealspecific = '';
+    ..mealspecific = ''
+    ..alarmSwitch = false
+    ..intakeTime = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('postalarm');
@@ -73,10 +72,9 @@ Map<String, dynamic> createPostalarmRecordData({
   DateTime createdTime,
   DocumentReference user,
   DateTime durationStart,
-  String intakeType,
-  String durationEnd,
-  String intakeTime,
   String mealspecific,
+  bool alarmSwitch,
+  DateTime durationEnd,
 }) =>
     serializers.toFirestore(
         PostalarmRecord.serializer,
@@ -85,7 +83,7 @@ Map<String, dynamic> createPostalarmRecordData({
           ..createdTime = createdTime
           ..user = user
           ..durationStart = durationStart
-          ..intakeType = intakeType
-          ..durationEnd = durationEnd
-          ..intakeTime = intakeTime
-          ..mealspecific = mealspecific));
+          ..mealspecific = mealspecific
+          ..alarmSwitch = alarmSwitch
+          ..intakeTime = null
+          ..durationEnd = durationEnd));

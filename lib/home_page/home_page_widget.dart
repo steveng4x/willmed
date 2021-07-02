@@ -143,18 +143,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               child: Padding(
                                 padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
                                 child: SwitchListTile(
-                                  value: switchListTileValue ?? true,
+                                  value: switchListTileValue ??
+                                      listViewPostalarmRecord.alarmSwitch,
                                   onChanged: (newValue) => setState(
                                       () => switchListTileValue = newValue),
                                   title: Text(
                                     listViewPostalarmRecord.medname,
                                     style: FlutterFlowTheme.title3.override(
-                                      fontFamily: 'Poppins',
-                                    ),
-                                  ),
-                                  subtitle: Text(
-                                    listViewPostalarmRecord.intakeType,
-                                    style: FlutterFlowTheme.subtitle2.override(
                                       fontFamily: 'Poppins',
                                     ),
                                   ),

@@ -5,7 +5,6 @@ import 'package:will_med/login_page/login_page_widget.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'option_page/option_page_widget.dart';
 import 'home_page/home_page_widget.dart';
-import 'statistic_page/statistic_page_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -72,7 +71,6 @@ class _NavBarPageState extends State<NavBarPage> {
     final tabs = {
       'OptionPage': OptionPageWidget(),
       'HomePage': HomePageWidget(),
-      'StatisticPage': StatisticPageWidget(),
     };
     return Scaffold(
       body: tabs[_currentPage],
@@ -91,13 +89,6 @@ class _NavBarPageState extends State<NavBarPage> {
               size: 24,
             ),
             label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.bar_chart,
-              size: 24,
-            ),
-            label: 'Statistic',
           )
         ],
         backgroundColor: Colors.white,

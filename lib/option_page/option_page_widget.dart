@@ -39,7 +39,7 @@ class _OptionPageWidgetState extends State<OptionPageWidget> {
                   children: [
                     Container(
                       width: MediaQuery.of(context).size.width,
-                      height: 220,
+                      height: 240,
                       decoration: BoxDecoration(
                         color: Colors.white,
                       ),
@@ -121,6 +121,21 @@ class _OptionPageWidgetState extends State<OptionPageWidget> {
                                   ),
                                 )
                               ],
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
+                                  child: Text(
+                                    columnUsersRecord.uid,
+                                    style: FlutterFlowTheme.subtitle2.override(
+                                      fontFamily: 'Poppins',
+                                      color: Color(0xFF5A5A5A),
+                                    ),
+                                  ),
+                                )
+                              ],
                             )
                           ],
                         ),
@@ -131,20 +146,23 @@ class _OptionPageWidgetState extends State<OptionPageWidget> {
                 Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(24, 12, 0, 12),
-                          child: Text(
-                            'Account Settings',
-                            style: FlutterFlowTheme.bodyText1.override(
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.bold,
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(24, 12, 0, 12),
+                            child: Text(
+                              'Account Settings',
+                              style: FlutterFlowTheme.bodyText1.override(
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     )
                   ],
                 ),

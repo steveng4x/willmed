@@ -1,4 +1,3 @@
-import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../create_alarm_page/create_alarm_page_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -65,9 +64,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       body: SafeArea(
         child: StreamBuilder<List<PostalarmRecord>>(
           stream: queryPostalarmRecord(
-            queryBuilder: (postalarmRecord) => postalarmRecord
-                .where('user', isEqualTo: currentUserReference)
-                .orderBy('created_time', descending: true),
+            queryBuilder: (postalarmRecord) =>
+                postalarmRecord.orderBy('created_time', descending: true),
           ),
           builder: (context, snapshot) {
             // Customize what your widget looks like when it's loading.
@@ -91,93 +89,101 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               itemBuilder: (context, listViewIndex) {
                 final listViewPostalarmRecord =
                     listViewPostalarmRecordList[listViewIndex];
-                return Container(
-                  width: double.infinity,
-                  height: 134,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFEEEEEE),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
-                    child: Card(
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      color: Color(0xFFF5F5F5),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Stack(
-                        children: [
-                          Align(
-                            alignment: Alignment(0.9, 0.78),
-                            child: FFButtonWidget(
-                              onPressed: () {
-                                print('Button pressed ...');
-                              },
-                              text: 'Date',
-                              icon: Icon(
-                                Icons.date_range,
-                                color: Colors.black,
-                                size: 25,
+                return Padding(
+                  padding: EdgeInsets.fromLTRB(1, 5, 0, 0),
+                  child: Card(
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    color: Color(0xFFF5F5F5),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Align(
+                      alignment: Alignment(0, 0),
+                      child: Container(
+                        width: double.infinity,
+                        height: 134,
+                        decoration: BoxDecoration(
+                          color: Color(0xFFEEEEEE),
+                        ),
+                        child: Stack(
+                          children: [
+                            Align(
+                              alignment: Alignment(0.9, 0.78),
+                              child: FFButtonWidget(
+                                onPressed: () {
+                                  print('Button pressed ...');
+                                },
+                                text: 'Date',
+                                icon: Icon(
+                                  Icons.date_range,
+                                  color: Colors.black,
+                                  size: 25,
+                                ),
+                                options: FFButtonOptions(
+                                  width: 120,
+                                  height: 40,
+                                  color: FlutterFlowTheme.primaryColor,
+                                  textStyle:
+                                      FlutterFlowTheme.subtitle2.override(
+                                    fontFamily: 'Poppins',
+                                    color: Colors.white,
+                                  ),
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1,
+                                  ),
+                                  borderRadius: 25,
+                                ),
                               ),
-                              options: FFButtonOptions(
-                                width: 120,
-                                height: 40,
-                                color: FlutterFlowTheme.primaryColor,
-                                textStyle: FlutterFlowTheme.subtitle2.override(
+                            ),
+                            Align(
+                              alignment: Alignment(0, -1.14),
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                child: SwitchListTile(
+                                  value: switchListTileValue ?? true,
+                                  onChanged: (newValue) => setState(
+                                      () => switchListTileValue = newValue),
+                                  title: Text(
+                                    listViewPostalarmRecord.medname,
+                                    style: FlutterFlowTheme.title3.override(
+                                      fontFamily: 'Poppins',
+                                    ),
+                                  ),
+                                  subtitle: Text(
+                                    listViewPostalarmRecord.intakeType,
+                                    style: FlutterFlowTheme.subtitle2.override(
+                                      fontFamily: 'Poppins',
+                                    ),
+                                  ),
+                                  tileColor: Color(0xFFF5F5F5),
+                                  activeColor: Color(0xFFA959DE),
+                                  dense: false,
+                                  controlAffinity:
+                                      ListTileControlAffinity.trailing,
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment(-0.87, 0.4),
+                              child: Text(
+                                'Next Intake',
+                                style: FlutterFlowTheme.bodyText1.override(
                                   fontFamily: 'Poppins',
-                                  color: Colors.white,
                                 ),
-                                borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1,
-                                ),
-                                borderRadius: 25,
                               ),
                             ),
-                          ),
-                          Align(
-                            alignment: Alignment(0, -1.14),
-                            child: SwitchListTile(
-                              value: switchListTileValue ?? true,
-                              onChanged: (newValue) => setState(
-                                  () => switchListTileValue = newValue),
-                              title: Text(
-                                listViewPostalarmRecord.medname,
-                                style: FlutterFlowTheme.title3.override(
+                            Align(
+                              alignment: Alignment(-0.87, 0.7),
+                              child: Text(
+                                listViewPostalarmRecord.intakeTime,
+                                style: FlutterFlowTheme.bodyText1.override(
                                   fontFamily: 'Poppins',
                                 ),
                               ),
-                              subtitle: Text(
-                                'Subtitle',
-                                style: FlutterFlowTheme.subtitle2.override(
-                                  fontFamily: 'Poppins',
-                                ),
-                              ),
-                              tileColor: Color(0xFFF5F5F5),
-                              activeColor: Color(0xFFA959DE),
-                              dense: false,
-                              controlAffinity: ListTileControlAffinity.trailing,
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment(-0.87, 0.4),
-                            child: Text(
-                              'Next Intake',
-                              style: FlutterFlowTheme.bodyText1.override(
-                                fontFamily: 'Poppins',
-                              ),
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment(-0.87, 0.7),
-                            child: Text(
-                              listViewPostalarmRecord.intakeTime,
-                              style: FlutterFlowTheme.bodyText1.override(
-                                fontFamily: 'Poppins',
-                              ),
-                            ),
-                          )
-                        ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),

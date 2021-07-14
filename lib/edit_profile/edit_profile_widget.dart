@@ -93,7 +93,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                         ),
                       ),
                       Align(
-                        alignment: Alignment(0, 0.54),
+                        alignment: Alignment(-0.01, -0.1),
                         child: InkWell(
                           onTap: () async {
                             final selectedMedia = await selectMedia();

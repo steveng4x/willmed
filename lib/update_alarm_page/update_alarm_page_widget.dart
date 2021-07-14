@@ -241,7 +241,7 @@ class _UpdateAlarmPageWidgetState extends State<UpdateAlarmPageWidget> {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Container(
-                              width: 365,
+                              width: MediaQuery.of(context).size.width,
                               height: 46,
                               decoration: BoxDecoration(
                                 color: Color(0x00EEEEEE),

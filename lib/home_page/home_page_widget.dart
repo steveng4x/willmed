@@ -190,32 +190,37 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             children: [
                                               Stack(
                                                 children: [
-                                                  ToggleIcon(
-                                                    onPressed: () async {
-                                                      final postalarmUpdateData =
-                                                          createPostalarmRecordData(
-                                                        alarmSwitch:
-                                                            !columnPostalarmRecord
-                                                                .alarmSwitch,
-                                                      );
-                                                      await columnPostalarmRecord
-                                                          .reference
-                                                          .update(
-                                                              postalarmUpdateData);
-                                                    },
-                                                    value: columnPostalarmRecord
-                                                        .alarmSwitch,
-                                                    onIcon: Icon(
-                                                      Icons.toggle_on,
-                                                      color: FlutterFlowTheme
-                                                          .primaryColor,
-                                                      size: 40,
-                                                    ),
-                                                    offIcon: Icon(
-                                                      Icons.toggle_off_outlined,
-                                                      color: FlutterFlowTheme
-                                                          .primaryColor,
-                                                      size: 40,
+                                                  Align(
+                                                    alignment: Alignment(0, 0),
+                                                    child: ToggleIcon(
+                                                      onPressed: () async {
+                                                        final postalarmUpdateData =
+                                                            createPostalarmRecordData(
+                                                          alarmSwitch:
+                                                              !columnPostalarmRecord
+                                                                  .alarmSwitch,
+                                                        );
+                                                        await columnPostalarmRecord
+                                                            .reference
+                                                            .update(
+                                                                postalarmUpdateData);
+                                                      },
+                                                      value:
+                                                          columnPostalarmRecord
+                                                              .alarmSwitch,
+                                                      onIcon: Icon(
+                                                        Icons.toggle_on,
+                                                        color: FlutterFlowTheme
+                                                            .primaryColor,
+                                                        size: 40,
+                                                      ),
+                                                      offIcon: Icon(
+                                                        Icons
+                                                            .toggle_off_outlined,
+                                                        color: FlutterFlowTheme
+                                                            .primaryColor,
+                                                        size: 40,
+                                                      ),
                                                     ),
                                                   )
                                                 ],

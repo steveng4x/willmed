@@ -36,8 +36,10 @@ class _CreateAlarmPageWidgetState extends State<CreateAlarmPageWidget> {
     super.initState();
     textController1 = TextEditingController();
     textController2 = TextEditingController();
-    textController3 = TextEditingController();
-    textController4 = TextEditingController();
+    textController3 =
+        TextEditingController(text: dateTimeFormat('MMMEd', datePicked1));
+    textController4 =
+        TextEditingController(text: dateTimeFormat('MMMEd', datePicked2));
     textController5 = TextEditingController();
   }
 

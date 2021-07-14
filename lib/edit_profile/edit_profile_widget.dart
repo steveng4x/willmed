@@ -328,12 +328,12 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                         if (!formKey.currentState.validate()) {
                           return;
                         }
-                        final usersRecordData = createUsersRecordData(
+                        final usersUpdateData = createUsersRecordData(
                           displayName: textController1.text,
                           photoUrl: uploadedFileUrl,
                           phoneNumber: textController2.text,
                         );
-                        await currentUserReference.update(usersRecordData);
+                        await currentUserReference.update(usersUpdateData);
                         Navigator.pop(context);
                       },
                       text: 'Done',

@@ -568,7 +568,7 @@ class _CreateAlarmPageWidgetState extends State<CreateAlarmPageWidget> {
                               if (!formKey.currentState.validate()) {
                                 return;
                               }
-                              final postalarmRecordData =
+                              final postalarmCreateData =
                                   createPostalarmRecordData(
                                 medname: textController1.text,
                                 createdTime: getCurrentTimestamp,
@@ -582,7 +582,7 @@ class _CreateAlarmPageWidgetState extends State<CreateAlarmPageWidget> {
                               );
                               await PostalarmRecord.collection
                                   .doc()
-                                  .set(postalarmRecordData);
+                                  .set(postalarmCreateData);
                               await Navigator.push(
                                 context,
                                 MaterialPageRoute(

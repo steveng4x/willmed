@@ -83,7 +83,7 @@ class _AlarmPageWidgetState extends State<AlarmPageWidget> {
                           child: Align(
                             alignment: Alignment(0, 0),
                             child: Text(
-                              'Hello World',
+                              widget.alarmParameter.medname,
                               style: FlutterFlowTheme.title1.override(
                                 fontFamily: 'Poppins',
                               ),
@@ -119,7 +119,7 @@ class _AlarmPageWidgetState extends State<AlarmPageWidget> {
                             child: Align(
                               alignment: Alignment(0, 0),
                               child: Text(
-                                'Hello World',
+                                widget.alarmParameter.pills.toString(),
                                 style: FlutterFlowTheme.title3.override(
                                   fontFamily: 'Poppins',
                                 ),
@@ -148,28 +148,34 @@ class _AlarmPageWidgetState extends State<AlarmPageWidget> {
                               color: FlutterFlowTheme.primaryColor,
                               borderRadius: BorderRadius.circular(15),
                             ),
-                            child: Stack(
-                              children: [
-                                Align(
-                                  alignment: Alignment(0, -0.45),
-                                  child: Text(
-                                    'Confirm',
-                                    style: FlutterFlowTheme.bodyText1.override(
-                                      fontFamily: 'Poppins',
-                                      color: Colors.white,
-                                      fontSize: 18,
+                            child: InkWell(
+                              onTap: () async {
+                                Navigator.pop(context);
+                              },
+                              child: Stack(
+                                children: [
+                                  Align(
+                                    alignment: Alignment(0, -0.45),
+                                    child: Text(
+                                      'Confirm',
+                                      style:
+                                          FlutterFlowTheme.bodyText1.override(
+                                        fontFamily: 'Poppins',
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Align(
-                                  alignment: Alignment(0, 0.5),
-                                  child: Icon(
-                                    Icons.check_box,
-                                    color: Colors.white,
-                                    size: 40,
-                                  ),
-                                )
-                              ],
+                                  Align(
+                                    alignment: Alignment(0, 0.5),
+                                    child: Icon(
+                                      Icons.check_box,
+                                      color: Colors.white,
+                                      size: 40,
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),

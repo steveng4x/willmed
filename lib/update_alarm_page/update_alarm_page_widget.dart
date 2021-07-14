@@ -26,13 +26,15 @@ class UpdateAlarmPageWidget extends StatefulWidget {
 
 class _UpdateAlarmPageWidgetState extends State<UpdateAlarmPageWidget> {
   DateTime datePicked1 = DateTime.now();
-  TextEditingController textController3;
-  DateTime datePicked2 = DateTime.now();
   TextEditingController textController4;
+  DateTime datePicked2 = DateTime.now();
+  TextEditingController textController5;
   String dropDownValue;
+  TextEditingController textController3;
   TextEditingController textController1;
   TextEditingController textController2;
-  TextEditingController textController5;
+  TextEditingController textController6;
+  TextEditingController textController7;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -43,12 +45,15 @@ class _UpdateAlarmPageWidgetState extends State<UpdateAlarmPageWidget> {
         TextEditingController(text: widget.reminderRecord.medname);
     textController2 =
         TextEditingController(text: widget.reminderRecord.pills.toString());
-    textController3 = TextEditingController(
-        text: dateTimeFormat('yMMMd', widget.reminderRecord.durationStart));
-    textController4 = TextEditingController(
-        text: dateTimeFormat('yMMMd', widget.reminderRecord.durationEnd));
-    textController5 =
+    textController3 =
         TextEditingController(text: widget.reminderRecord.intakeTime);
+    textController4 = TextEditingController(
+        text: dateTimeFormat('yMMMd', widget.reminderRecord.durationStart));
+    textController5 = TextEditingController(
+        text: dateTimeFormat('yMMMd', widget.reminderRecord.durationEnd));
+    textController6 =
+        TextEditingController(text: widget.reminderRecord.intakeTime);
+    textController7 = TextEditingController();
   }
 
   @override
@@ -74,7 +79,26 @@ class _UpdateAlarmPageWidgetState extends State<UpdateAlarmPageWidget> {
               ),
             ),
           ),
-          actions: [],
+          actions: [
+            IconButton(
+              onPressed: () async {
+                await widget.reminderRecord.reference.delete();
+                await Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => NavBarPage(initialPage: 'HomePage'),
+                  ),
+                  (r) => false,
+                );
+              },
+              icon: Icon(
+                Icons.delete,
+                color: Color(0xFF3B3B3B),
+                size: 35,
+              ),
+              iconSize: 35,
+            )
+          ],
           centerTitle: true,
           elevation: 4,
         ),
@@ -252,6 +276,66 @@ class _UpdateAlarmPageWidgetState extends State<UpdateAlarmPageWidget> {
                                   hidesUnderline: true,
                                 ),
                               ),
+                            ),
+                            Expanded(
+                              child: TextFormField(
+                                onChanged: (_) => setState(() {}),
+                                controller: textController3,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  hintText: 'Time(s)',
+                                  hintStyle:
+                                      FlutterFlowTheme.bodyText1.override(
+                                    fontFamily: 'Poppins',
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0xFF787878),
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(10),
+                                      bottomRight: Radius.circular(10),
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10),
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0xFF787878),
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(10),
+                                      bottomRight: Radius.circular(10),
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10),
+                                    ),
+                                  ),
+                                  suffixIcon: textController3.text.isNotEmpty
+                                      ? InkWell(
+                                          onTap: () => setState(
+                                            () => textController3.clear(),
+                                          ),
+                                          child: Icon(
+                                            Icons.clear,
+                                            color: Color(0xFF757575),
+                                            size: 22,
+                                          ),
+                                        )
+                                      : null,
+                                ),
+                                style: FlutterFlowTheme.bodyText1.override(
+                                  fontFamily: 'Poppins',
+                                ),
+                                validator: (val) {
+                                  if (val.isEmpty) {
+                                    return 'Field is required';
+                                  }
+
+                                  return null;
+                                },
+                              ),
                             )
                           ],
                         ),
@@ -279,7 +363,7 @@ class _UpdateAlarmPageWidgetState extends State<UpdateAlarmPageWidget> {
                                 child: Stack(
                                   children: [
                                     TextFormField(
-                                      controller: textController3,
+                                      controller: textController4,
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         labelText: 'Start Date',
@@ -360,7 +444,7 @@ class _UpdateAlarmPageWidgetState extends State<UpdateAlarmPageWidget> {
                                 child: Stack(
                                   children: [
                                     TextFormField(
-                                      controller: textController4,
+                                      controller: textController5,
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         labelText: 'End Date',
@@ -465,7 +549,7 @@ class _UpdateAlarmPageWidgetState extends State<UpdateAlarmPageWidget> {
                           Expanded(
                             child: TextFormField(
                               onChanged: (_) => setState(() {}),
-                              controller: textController5,
+                              controller: textController6,
                               obscureText: false,
                               decoration: InputDecoration(
                                 hintText: 'Time(s)',
@@ -496,10 +580,10 @@ class _UpdateAlarmPageWidgetState extends State<UpdateAlarmPageWidget> {
                                     topRight: Radius.circular(10),
                                   ),
                                 ),
-                                suffixIcon: textController5.text.isNotEmpty
+                                suffixIcon: textController6.text.isNotEmpty
                                     ? InkWell(
                                         onTap: () => setState(
-                                          () => textController5.clear(),
+                                          () => textController6.clear(),
                                         ),
                                         child: Icon(
                                           Icons.clear,
@@ -522,6 +606,73 @@ class _UpdateAlarmPageWidgetState extends State<UpdateAlarmPageWidget> {
                             ),
                           )
                         ],
+                      )
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                        child: Text(
+                          'Alarm On/Off',
+                          style: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Poppins',
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                          child: TextFormField(
+                            controller: textController7,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              hintText: 'True/False',
+                              hintStyle: FlutterFlowTheme.bodyText1.override(
+                                fontFamily: 'Poppins',
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0xFF787878),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(10),
+                                  bottomRight: Radius.circular(10),
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0xFF787878),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(10),
+                                  bottomRight: Radius.circular(10),
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
+                                ),
+                              ),
+                            ),
+                            style: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Poppins',
+                            ),
+                            validator: (val) {
+                              if (val.isEmpty) {
+                                return 'Field is required';
+                              }
+
+                              return null;
+                            },
+                          ),
+                        ),
                       )
                     ],
                   ),
@@ -577,23 +728,27 @@ class _UpdateAlarmPageWidgetState extends State<UpdateAlarmPageWidget> {
                             if (!formKey.currentState.validate()) {
                               return;
                             }
-                            final postalarmRecordData =
+                            final postalarmUpdateData =
                                 createPostalarmRecordData(
                               medname: textController1.text,
                               durationStart: datePicked1,
                               mealspecific: dropDownValue,
                               durationEnd: datePicked2,
                               pills: int.parse(textController2.text),
-                              intakeTime: textController5.text,
+                              intakeTime: textController6.text,
+                              alarmSwitch: /* NOT RECOMMENDED */ textController7
+                                      .text ==
+                                  true,
                             );
                             await widget.reminderRecord.reference
-                                .update(postalarmRecordData);
-                            await Navigator.push(
+                                .update(postalarmUpdateData);
+                            await Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
                                     NavBarPage(initialPage: 'HomePage'),
                               ),
+                              (r) => false,
                             );
                           },
                           text: 'Done',
